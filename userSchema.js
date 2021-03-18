@@ -8,7 +8,7 @@ module.exports = class MongooseUser {
     const schemaOptions = {
       timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
     };
-    const userSchema = new Schema(
+    const userSchema = new this.databaseConfiguration.Schema(
       {
         userName: {
           type: String,

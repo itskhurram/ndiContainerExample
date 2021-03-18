@@ -1,27 +1,27 @@
 'use strict';
 
 module.exports = class UserRepository {
-  constructor(_databaseConfiguration) {
-    this.databaseConfiguration = _databaseConfiguration;
+  constructor(_mongooseUserSchema) {
+    this.mongooseUserSchema = _mongooseUserSchema;
   }
   getUsers = () => {
-    return this.databaseConfiguration.find();
+    return this.mongooseUserSchema.find();
   };
   getByEmail = (email) => {
-    return this.databaseConfiguration.findOne({ email: email });
+    return this.mongooseUserSchema.findOne({ email: email });
   };
   saveUser = (user) => {
-    const schemaUser = new userSchema(user);
+    const schemaUser = new this.mongooseUserSchema(user);
     schemaUser.save(schemaUser);
   };
   getUsersAsync = async () => {
-    return await this.databaseConfiguration.find();
+    return await this.mongooseUserSchema.find();
   };
   getByEmailAsync = async (email) => {
-    return this.databaseConfiguration.findOne({ email: email });
+    return await this.mongooseUserSchema.findOne({ email: email });
   };
   saveUserAsync = async (user) => {
-    const schemaUser = new userSchema(user);
-    await this.databaseConfiguration.save(schemaUser);
+    const schemaUser = new this.mongooseUserSchema(user);
+    await this.mongooseUserSchema.save(schemaUser);
   };
 };
