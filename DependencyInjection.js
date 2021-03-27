@@ -1,30 +1,22 @@
-import { ContainerBuilder } from 'node-dependency-injection';
-import mongoose from 'mongoose';
+// const dotenv = require('dotenv');
+// const Environment = require('./Environment');
 
-import dotenv from 'dotenv';
+// const { asClass, asValue, createContainer } = require('awilix');
+// const { scopePerRequest } = require('awilix-express');
 
-import Environment from './Environment.js';
-import ConfigureDatabase from './ConfigureDatabase.js';
-import UserRepository from './UserRepository.js';
-import UserService from './UserService.js';
-import UserController from './UserController.js';
-import MongooseUser from './UserSchema.js';
+// const container = createContainer();
+// container.register({
+//   // Scoped lifetime = new instance per request
+//   // Imagine the TodosService needs a `user`.
+//   // class TodosService { constructor({ user }) { } }
+//   env: asClass(Environment).scoped(),
+// });
 
-let container = new ContainerBuilder();
+// // Add the middleware, passing it your Awilix container.
+// // This will attach a scoped container on the context.
+// app.use(scopePerRequest(container));
 
-container.register('Environment', Environment).addArgument(dotenv);
+// container.register({
+//   dotenv: asValue(dotenv), // from some authentication middleware...
+// });
 
-container
-  .register('ConfigureDatabase', ConfigureDatabase)
-  .addArgument(dotenv)
-  .addArgument(mongoose);
-
-container.register('MongooseUser', MongooseUser).addArgument(ConfigureDatabase);
-
-container.register('UserRepository', UserRepository).addArgument(MongooseUser);
-
-container.register('UserService', UserService).addArgument(UserRepository);
-
-container.register('UserController', UserController).addArgument(UserService);
-
-export default container;

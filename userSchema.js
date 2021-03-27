@@ -1,14 +1,14 @@
 'user strict';
 
 module.exports = class MongooseUser {
-  constructor(_databaseConfiguration) {
-    this.databaseConfiguration = _databaseConfiguration;
+  constructor(object) {
+    this.mongoose = object.config.getMongoose();
   }
   getUserSchema = () => {
     const schemaOptions = {
       timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
     };
-    const userSchema = new this.databaseConfiguration.Schema(
+    const userSchema = new this.mongoose.Schema(
       {
         userName: {
           type: String,
@@ -29,6 +29,6 @@ module.exports = class MongooseUser {
       },
       schemaOptions
     );
-    return this.databaseConfiguration.model('user', userSchema);
+    return this.mongoose.model('user', userSchema);
   };
 };

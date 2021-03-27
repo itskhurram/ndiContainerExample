@@ -1,9 +1,10 @@
 'use strict';
+const mongoose = require('mongoose');
 
 module.exports = class ConfigureDatabase {
-  constructor(_environment, _mongoose) {
-    this.mongoose = _mongoose;
-    this.environment = _environment;
+  constructor(environmentObject) {
+    this.mongoose = mongoose;
+    this.environment = environmentObject.env;
     this.mongoose
       .connect(this.environment.DATABASE_URI, {
         useNewUrlParser: true,
@@ -12,6 +13,7 @@ module.exports = class ConfigureDatabase {
       .then((result) => {
         console.log('connected to MongoDB database!');
         //console.log(result);
+        //return this.mongoose;
         //return this.mongoose;
       })
       .catch((err) => {

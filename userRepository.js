@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = class UserRepository {
-  constructor(_mongooseUserSchema) {
-    this.mongooseUserSchema = _mongooseUserSchema;
+  constructor(dbConfig) {
+    this.mongooseUserSchema = dbConfig.mongooseUser;
   }
   getUsers = () => {
     return this.mongooseUserSchema.find();
@@ -15,7 +15,7 @@ module.exports = class UserRepository {
     schemaUser.save(schemaUser);
   };
   getUsersAsync = async () => {
-    return await this.mongooseUserSchema.find();
+    return await this.mongooseUserSchema.getUserSchema().find();
   };
   getByEmailAsync = async (email) => {
     return await this.mongooseUserSchema.findOne({ email: email });

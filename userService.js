@@ -1,7 +1,7 @@
 'use strict';
 module.exports = class UserService {
-  constructor(_userRepository) {
-    this.userRepository = _userRepository;
+  constructor(repo) {
+    this.userRepository = repo.userRepository;
   }
   getUsers = () => {
     return this.userRepository.getUsers();
