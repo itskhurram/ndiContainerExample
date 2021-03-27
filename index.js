@@ -23,26 +23,6 @@ container.register({
   mongooseUser: awilix.asClass(MongooseUser),
 });
 
-// Add the middleware, passing it your Awilix container.
-// This will attach a scoped container on the context.
-
-// container.register({
-//   configuredDatabase: asFunction(container.resolve('env').getMongoose()), // from some authentication middleware...
-// });
-
-//console.log(env);
-// const configuredDatabase = new ConfigureDatabase(env, mongoose).getMongoose();
-// const mongooseUser = new MongooseUser(configuredDatabase).getUserSchema();
-// const repo = new UserRepository(mongooseUser);
-// const service = new UserService(repo);
-// const controller = new UserController(service);
-
-// repo.saveUser({
-//   userName: 'Khurram',
-//   firstName: 'Khurram',
-//   lastName: 'Shahzad',
-//   email: 'itskhurrams@gmail.com',
-// });
 app.get('/users', container.resolve('controller').getUsers);
 app.get('/usersAsync', container.resolve('controller').getUsersAsync);
 
