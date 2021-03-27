@@ -1,22 +1,20 @@
-// const dotenv = require('dotenv');
-// const Environment = require('./Environment');
+const { asClass, createContainer } = require('awilix');
 
-// const { asClass, asValue, createContainer } = require('awilix');
-// const { scopePerRequest } = require('awilix-express');
+const Environment = require('./Environment');
+const ConfigureDatabase = require('./ConfigureDatabase');
+const UserRepository = require('./UserRepository');
+const UserService = require('./UserService');
+const UserController = require('./UserController');
+const userSchema = require('./UserSchema');
 
-// const container = createContainer();
-// container.register({
-//   // Scoped lifetime = new instance per request
-//   // Imagine the TodosService needs a `user`.
-//   // class TodosService { constructor({ user }) { } }
-//   env: asClass(Environment).scoped(),
-// });
+const container = createContainer();
+container.register({
+  environment: asClass(Environment).singleton(),
+  userController: asClass(UserController).scoped(),
+  userService: asClass(UserService).scoped(),
+  userRepository: asClass(UserRepository).scoped(),
+  configureDatabase: asClass(ConfigureDatabase).scoped(),
+  userSchema: asClass(userSchema).scoped(),
+});
 
-// // Add the middleware, passing it your Awilix container.
-// // This will attach a scoped container on the context.
-// app.use(scopePerRequest(container));
-
-// container.register({
-//   dotenv: asValue(dotenv), // from some authentication middleware...
-// });
-
+module.exports = container;

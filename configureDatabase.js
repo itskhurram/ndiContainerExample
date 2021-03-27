@@ -1,10 +1,9 @@
 'use strict';
 const mongoose = require('mongoose');
-
 module.exports = class ConfigureDatabase {
   constructor(environmentObject) {
     this.mongoose = mongoose;
-    this.environment = environmentObject.env;
+    this.environment = environmentObject.environment;
     this.mongoose
       .connect(this.environment.DATABASE_URI, {
         useNewUrlParser: true,

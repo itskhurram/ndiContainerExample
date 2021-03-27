@@ -2,7 +2,7 @@
 
 module.exports = class UserRepository {
   constructor(dbConfig) {
-    this.mongooseUserSchema = dbConfig.mongooseUser;
+    this.mongooseUserSchema = dbConfig.userSchema;
   }
   getUsers = () => {
     return this.mongooseUserSchema.find();
@@ -15,7 +15,7 @@ module.exports = class UserRepository {
     schemaUser.save(schemaUser);
   };
   getUsersAsync = async () => {
-    return await this.mongooseUserSchema.getUserSchema().find();
+    return await this.mongooseUserSchema.find();
   };
   getByEmailAsync = async (email) => {
     return await this.mongooseUserSchema.findOne({ email: email });
