@@ -1,20 +1,27 @@
-const { asClass, createContainer } = require('awilix');
-
-const Environment = require('./Environment');
-const ConfigureDatabase = require('./ConfigureDatabase');
-const UserRepository = require('./UserRepository');
-const UserService = require('./UserService');
-const UserController = require('./UserController');
-const userSchema = require('./UserSchema');
+'use strict';
+const { createContainer, Lifetime } = require('awilix');
 
 const container = createContainer();
-container.register({
-  environment: asClass(Environment).singleton(),
-  userController: asClass(UserController).scoped(),
-  userService: asClass(UserService).scoped(),
-  userRepository: asClass(UserRepository).scoped(),
-  configureDatabase: asClass(ConfigureDatabase).scoped(),
-  userSchema: asClass(userSchema).scoped(),
+container.loadModules(['environment.js', 'userSchema.js'], {
+  formatName: 'camelCase',
+  resolverOptions: {
+    lifetime: Lifetime.SINGLETON,
+  },
 });
+container.loadModules(
+  [
+    'configureDatabase.js',
+    'dependencyInjection.js',
+    'userController.js',
+    'userRepository.js',
+    'userService.js',
+  ],
+  {
+    formatName: 'camelCase',
+    resolverOptions: {
+      lifetime: Lifetime.SCOPED,
+    },
+  }
+);
 
 module.exports = container;
