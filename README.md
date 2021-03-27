@@ -1,4 +1,4 @@
-# node dependency injection express middleware
+# dependency injection Implementation using Awilix 
 
-getting basic undestanding of the Node Dependency Injection Middleware usage.
+getting basic undestanding of the Awilix Dependency Injection usage.
 
